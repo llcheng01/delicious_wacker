@@ -2,9 +2,10 @@ source 'https://rubygems.org'
 
 gem "sinatra"
 gem "thin", "1.2.7"
-gem "json_pure", "1.4.6", :require => 'json/pure'
+# gem "json_pure", "1.4.6", :require => 'json/pure'
+gem "json", '~> 1.8.1'
 gem "rspec", "2.4.0"
-# gem "oauth2"
+gem "oauth2"
 
 
 group :development do

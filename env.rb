@@ -1,0 +1,4 @@
+# env.rb
+
+ENV['D_API_CLIENT'] = '17d350ce3c08c1bc72f3a39bb3336e9a'
+ENV['D_API_SECRET'] = '34bc71d124692d2f6f16ea296a394abb'

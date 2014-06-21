@@ -8,7 +8,7 @@ describe "My Sinata Application" do
 
     it "should allow accessing the home page" do
         last_response.should be_ok
-        # last_response.body.should have_content('Hello World')
+        last_response.body.should include('Hello World')
     end
 
     it 'is successful' do
