@@ -6,6 +6,7 @@ gem "thin", "1.2.7"
 gem "json", '~> 1.8.1'
 gem "rspec", "2.4.0"
 gem "oauth2"
+gem 'httparty', '0.13.0'
 
 
 group :development do
