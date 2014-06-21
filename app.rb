@@ -36,7 +36,10 @@ def client
     client ||= OAuth2::Client.new(D_API_CLIENT, D_API_SECRET, {
         :site => 'https://delicious.com',
         :authorize_url => "/auth/authorize",
-        :token_url => "/auth/token"
+        :token_url => "https://avosapi.delicious.com/api/v1/oauth/token",
+        :grant_type => "code",
+        :client_id => D_API_CLIENT,
+        :client_secret => D_API_SECRET
     })
 end
 
@@ -57,8 +60,8 @@ end
 get '/oauth2callback' do
     callback_url = "#{base_url}/oauth2callback"
     begin
-        puts #{client.auth_code.inspect}
-        @token = client.auth_code.get_token(params[:code], :token_method => :post, :redirect_uri => callback_url, :client_id => D_API_CLIENT, :client_secret => D_API_SECRET, :grant_type => "code")
+        logger.info "Calling back? #{client.auth_code.inspect}"
+        @token = client.auth_code.get_token(params[:code], :redirect_uri => callback_url)
     rescue OAuth2::Error => @exception
         return erb %{oauth2 failed: <%=h @exception.message %>}
     end
