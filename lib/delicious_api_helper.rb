@@ -11,23 +11,23 @@ module DeliciousApiHelper
 
         def initialize(username)
             @username = username
-            @options = {:query => {:count => '25'}}
+            @options = {:query => {:count => '5'}}
         end
 
         def get_public_links
             result = []
-            # begin
-                resp = self.class.get("/json/" + @username.to_s, @options)
-                # resp = self.class.get("/json/" + @username.to_s)
-                if resp.success?
-                    resp.parsed_response.each do |l|
-                        result << {'url' => l['u'], 'desc' => l['d']}
-                    end
-                end
-           #  rescue StandardError, Timeout::Error => @exception
-           #      # logger.info "get_public_links fails for username: " + @username.to_sA
-           #      raise "Resp: #{resp.inspect} #{@exception.message}"
-           #  end
+           begin
+             resp = self.class.get("/json/" + @username.to_s, @options)
+             # resp = self.class.get("/json/" + @username.to_s)
+             if resp.success?
+                 resp.parsed_response.each do |l|
+                     result << {'url' => l['u'], 'desc' => l['d']}
+                 end
+             end
+           rescue StandardError, Timeout::Error => @exception
+               # logger.info "get_public_links fails for username: " + @username.to_sA
+               raise "Resp: #{resp.inspect} #{@exception.message}"
+           end
             result
         end
     end

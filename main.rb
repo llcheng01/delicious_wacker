@@ -4,9 +4,11 @@ require 'json'
 require './helpers/init'
 
 require_relative 'lib/delicious_api_helper'
+require_relative 'lib/url_helper'
 
 helpers do
     include DeliciousApiHelper
+    include UrlHelper
     include Rack::Utils
     alias_method :h, :escape_html
 end
@@ -21,11 +23,18 @@ get '/partials/:name' do
 end
 
 get '/api/bookmarks' do
-    #begin
-        @result = DeliciousApiHelper::Link.new("frogmonkey77").get_public_links()
-    # rescue RuntimeError => @exception
-    #     return erb %{retrieving links failed: <%=h @exception.message %>}
-    # end
+    begin
+      @result = DeliciousApiHelper::Link.new("frogmonkey77").get_public_links()
+    rescue RuntimeError => @exception
+        return erb %{retrieving links failed: <%=h @exception.message %>}
+    end
+    
+    @result.each do |r|
+       status = url_exist?(r['url'])
+       logger.info "#{r['url']} => #{status}"
+       r['status'] = status
+    end
+
     if @result.empty?
         logger.info "result is empty"
     else
