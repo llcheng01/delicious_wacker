@@ -1,0 +1,25 @@
+<div class="container">
+    <h1>Bookmark Detail</h1>
+
+    <form novalidate="novalidate" class="form-horizontal">
+        <div class="control-group">
+            <label class="control-label" for="input_url">Url: </label>
+            <div class="controls">
+                <input type="text" id="input_title" ng-model="bookmark.url"/>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="input_desc">Description: </label>
+            <div class="controls">
+                <textarea type="text" id="textarea_desc" ng-model="bookmark.desc">
+                </textarea>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <a ng-click="cancel()" class="btn btn-small btn-default">cancel</a>
+                <a ng-click="updateBookmark()" class="btn btn-small btn-primary">update</a>
+            </div>
+        </div>
+    </form>
+</div>

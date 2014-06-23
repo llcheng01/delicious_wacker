@@ -29,9 +29,10 @@ get '/api/bookmarks' do
         return erb %{retrieving links failed: <%=h @exception.message %>}
     end
     
-    @result.each do |r|
+    @result.each_with_index do |r, i|
        status = url_exist?(r['url'])
        logger.info "#{r['url']} => #{status}"
+       r['id'] = i.to_i
        r['status'] = status
     end
 
